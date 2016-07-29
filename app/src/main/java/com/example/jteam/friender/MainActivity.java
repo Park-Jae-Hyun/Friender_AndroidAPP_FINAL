@@ -1,11 +1,17 @@
 package com.example.jteam.friender;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -14,6 +20,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Complete
         ArrayList<String> main_city_list = new ArrayList<String>();
         CityList CList= new CityList();
@@ -33,9 +40,18 @@ public class MainActivity extends Activity {
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         list.setDivider(new ColorDrawable(Color.WHITE));
         list.setDividerHeight(2);
+
+        Button btn1 = (Button)findViewById(R.id.button2);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"sucess",Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MainActivity.this,Database_Person.class);
+                startActivity(intent);
+            }
+        });
     }
-
-
 }
 
 
