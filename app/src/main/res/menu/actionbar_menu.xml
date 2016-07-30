@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
         <item
-            android:id="@+id/newID"
-            android:title="Create"
+            android:id="@+id/Find"
+            android:title="Find"
+            android:icon="@drawable/find"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/Write"
+            android:title="Write"
+            android:icon="@drawable/write"
             app:showAsAction="always" />
 
-        <item
-            android:id="@+id/find"
-            android:title="Find"
-            app:showAsAction="always" />
 </menu>
