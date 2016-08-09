@@ -12,7 +12,7 @@ import android.widget.TextView;
  */
 public class CityItemView extends LinearLayout{
 
-    TextView CitynameView;
+    private TextView CitynameView;
 
     public CityItemView(Context context) {
         super(context);
