@@ -1,18 +1,14 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.cityview;
 
 import android.app.Activity;
-import android.app.IntentService;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+
+import com.example.jteam.friender.R;
+
 import java.util.Timer;
 import java.util.TimerTask;
-import org.json.JSONObject;
-
-import java.net.URL;
-import java.util.ArrayList;
 
 public class SplashActivity extends Activity {
     @Override
@@ -28,9 +24,6 @@ public class SplashActivity extends Activity {
                 Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
                 startActivity(mainIntent);
                 finish();
-                //        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                //        startActivity(intent);
-                //        finish();
             }
         };
 

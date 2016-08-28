@@ -1,5 +1,7 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.cityview;
 
+
+import com.example.jteam.friender.R;
 
 import java.util.ArrayList;
 

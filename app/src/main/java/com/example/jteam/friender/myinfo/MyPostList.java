@@ -1,4 +1,4 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.myinfo;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,13 +6,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.jteam.friender.bulletinview.BulletinItemView;
+import com.example.jteam.friender.bulletinview.Bulletin;
+import com.example.jteam.friender.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,21 +30,20 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by flag on 2016-08-09.
+ * Created by Sun on 2016-08-08.
  */
-public class MyJoin extends AppCompatActivity {
+public class MyPostList extends AppCompatActivity {
 
     BoardAdapter Adapter;
     ArrayList<Bulletin> post_bulletin = new ArrayList<Bulletin>();
     private int USER_UNIQUE_ID = 0;
     private String destination = null, sub_route1 = null, sub_route2 = null, text = null;
-    private int date = 0, total_friends = 0, joined_friends = 0, character1, character2, character3;
+    private int date = 0, finding_friends = 0, joined_friends = 0, character1, character2, character3;
     private int id = 0;
     private int num_bulletin = 0;
     private String city = null;
     private String name = null;
     private String writer = null;
-    ArrayList<Bulletin> bulletin = new ArrayList<Bulletin>();
     ListView list;
 
     protected void onCreate(Bundle savedInstanceState)
@@ -67,17 +69,16 @@ public class MyJoin extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "Selected : " + position, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(),DB_Bulletin.class);
+                Intent intent = new Intent(getApplicationContext(),MyPost_Info.class);
 
                 //인텐트에 bulletin정보를 담아 전달
-                intent.putExtra("bulletin",bulletin.get(position));
+                intent.putExtra("bulletin",post_bulletin.get(position));
                 startActivity(intent);
             }
 
         });
 
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle("FIND");
         actionbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF000000")));
         actionbar.setDisplayHomeAsUpEnabled(true);
     }
@@ -107,7 +108,7 @@ public class MyJoin extends AppCompatActivity {
         //각 게시판리스트에 보여질 뷰 세팅
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            BoardItemView view = new BoardItemView(getApplicationContext());
+            BulletinItemView view = new BulletinItemView(getApplicationContext());
 
             view.setBulletin(post_bulletin.get(position));
 
@@ -125,10 +126,9 @@ public class MyJoin extends AppCompatActivity {
             int tmp;
 
             try {
-                URL url = new URL("http://52.68.212.232/db_travel_my_join.php");
+                URL url = new URL("http://52.68.212.232/db_travel_my_post.php");
                 String urlParams = "user_u_id=" + user_u_id;
 
-                Log.i("user_u_id2222",""+user_u_id);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 OutputStream os = httpURLConnection.getOutputStream();
@@ -176,32 +176,18 @@ public class MyJoin extends AppCompatActivity {
                     sub_route1 = dataJObject.getString("sub_route1");
                     sub_route2 = dataJObject.getString("sub_route2");
                     date = dataJObject.getInt("date");
-                    total_friends = dataJObject.getInt("total_friends");
+                    finding_friends = dataJObject.getInt("finding_friends");
                     joined_friends = dataJObject.getInt("joined_friends");
                     character1 = dataJObject.getInt("character1");
                     character2 = dataJObject.getInt("character2");
                     character3 = dataJObject.getInt("character3");
                     text = dataJObject.getString("text");
 
-                    temp.setAllcomponents(num_bulletin, destination, writer, sub_route1, sub_route2, date,
-                            total_friends, joined_friends, character1, character2, character3,text);
+                    temp.setAllcomponents(num_bulletin,destination, writer, sub_route1, sub_route2, date,
+                            finding_friends, joined_friends, character1, character2, character3,text);
 
                     post_bulletin.add(temp);
 
-                    Log.i("id", "" + id);
-                    Log.i("num_bulletin", "" + num_bulletin);
-                    Log.i("writer", "" + writer);
-                    Log.i("destination", "" + destination);
-                    Log.i("sub_route1", "" + sub_route1);
-                    Log.i("sub_route2", "" + sub_route2);
-                    Log.i("date", "" + date);
-                    Log.i("total_friends", "" + total_friends);
-                    Log.i("joined_friends", "" + joined_friends);
-                    Log.i("character1", "" + character1);
-                    Log.i("character2", "" + character2);
-                    Log.i("character3", "" + character3);
-                    Log.i("text",""+text);
-                    Log.i("-----------", "----------\n");
                 }
                 Adapter = new BoardAdapter();
                 list = (ListView) findViewById(R.id.listView2);

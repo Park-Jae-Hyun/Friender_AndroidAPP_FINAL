@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".cityview.MainActivity"
             android:icon="@mipmap/ic_launcher" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".cityview.SplashActivity"
             android:label="@string/title_activity_splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,15 +23,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BoardActivity"
+            android:name=".bulletinview.BulletinActivity"
             android:label="BoardActivity" />
-        <activity android:name=".DB_Resister" />
-        <activity android:name=".DB_Login" />
-        <activity android:name=".BoardPost" />
-        <activity android:name=".MyPost" />
-        <activity android:name=".Magement" />
-        <activity android:name=".DB_Bulletin" />
-        <activity android:name=".MyPost_info"></activity>
+        <activity android:name=".database.DB_Resister" />
+        <activity android:name=".database.DB_Login" />
+        <activity android:name=".bulletinview.BulletinPost" />
+        <activity android:name=".myinfo.MyPostList" />
+        <activity android:name=".myinfo.MyJoinList" />
+        <activity android:name=".myinfo.MyinfoManagement" />
+        <activity android:name=".database.DB_Bulletin" />
+        <activity android:name=".myinfo.MyPost_Info"></activity>
     </application>
 
 </manifest>

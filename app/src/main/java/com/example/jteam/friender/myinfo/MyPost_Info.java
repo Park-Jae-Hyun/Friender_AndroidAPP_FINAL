@@ -1,9 +1,10 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.myinfo;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MyPost_info extends AppCompatActivity {
+import com.example.jteam.friender.bulletinview.Bulletin;
+import com.example.jteam.friender.R;
+import com.example.jteam.friender.cityview.CityItemView;
+
+public class MyPost_Info extends AppCompatActivity {
     TextView Date;
     TextView Destination;
     TextView Route1;
@@ -25,7 +30,7 @@ public class MyPost_info extends AppCompatActivity {
 
     nameAdapter Adapter = new nameAdapter();
 
-    int pictogramres[] = {R.mipmap.p01people,R.mipmap.p02food,R.mipmap.p03beer,R.mipmap.p04coffee,
+    int pictogramres[] = {R.color.white,R.mipmap.p01people,R.mipmap.p02food,R.mipmap.p03beer,R.mipmap.p04coffee,
             R.mipmap.p05sports,R.mipmap.p06music,R.mipmap.p07movie,R.mipmap.p08photo,R.mipmap.p09reading,
             R.mipmap.p10concert,R.mipmap.p11festival,R.mipmap.p12travel,R.mipmap.p13rest,R.mipmap.p14tour,
             R.mipmap.p15beach,R.mipmap.p16mountain,R.mipmap.p17owncar,R.mipmap.p18bycicle,
@@ -35,6 +40,9 @@ public class MyPost_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post_info);
+
+        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
+        actionbar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF000000")));
 
         //intent로 보내온 bulletin객체 받아오기
         Intent intent = getIntent();
@@ -55,12 +63,6 @@ public class MyPost_info extends AppCompatActivity {
 
         ListView list = (ListView) findViewById(R.id.listView3);
         list.setAdapter(Adapter);
-
-        Log.i("writer", "" + bulletin.getUsername());
-        Log.i("destination", "" + bulletin.getDestination());
-        Log.i("sub_route1", "" +bulletin.getRoute1());
-        Log.i("sub_route2", "" + bulletin.getRoute2());
-
 
         Date.setText(bulletin.getDate());
         Destination.setText(bulletin.getDestination());

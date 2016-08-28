@@ -1,9 +1,13 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.database;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import com.example.jteam.friender.cityview.MainActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -34,6 +38,9 @@ public class DB_Login extends Activity{
     }
 
     class LoginCheck extends AsyncTask<String, String, String> {
+
+        ProgressDialog loading;
+
 
         @Override
         protected String doInBackground(String... params) {

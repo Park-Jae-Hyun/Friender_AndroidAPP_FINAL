@@ -1,4 +1,4 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.bulletinview;//////////////////////////////////
 
 import android.util.Log;
 
@@ -14,14 +14,14 @@ public class Bulletin implements Serializable, Comparable<Bulletin> {
     private String route2 = null;
     private String letter = null;
     private int date = 0;
-    private int[] character = new int[3];/////////////
-    private int totalnum = 0;/////////////
-    private int joinednum = 0;//////////////
+    private int[] character = new int[3];
+    private int findingNum = 0;
+    private int joinednum = 0;
     private String username = null;
     private int num_bulletin = 0;
 
 
-    public void setAllcomponents(int number_bulletin, String des, String writer, String rout1,String rout2, int dat, int total, int join,
+    public void setAllcomponents(int number_bulletin, String des, String writer, String rout1,String rout2, int dat, int find, int join,
                                  int char1, int char2, int char3, String let)
     {
         num_bulletin = number_bulletin;
@@ -30,7 +30,7 @@ public class Bulletin implements Serializable, Comparable<Bulletin> {
         route2 = rout2;
         username = writer;
         date = dat;
-        totalnum = total;
+        findingNum = find;
         joinednum = join;
         character[0] = char1;
         character[1] = char2;
@@ -121,11 +121,11 @@ public class Bulletin implements Serializable, Comparable<Bulletin> {
     }
 
     public int getTotalnum() {
-        return totalnum;
+        return findingNum;
     }
 
     public void setTotalnum(int totalnum) {
-        this.totalnum = totalnum;
+        this.findingNum = totalnum;
     }
 
     public void printcontents()
@@ -134,7 +134,7 @@ public class Bulletin implements Serializable, Comparable<Bulletin> {
         Log.i("destination",""+destination);
         Log.i("route1",""+route1);
         Log.i("route2",""+route2);
-        Log.i("totalnum",""+totalnum);
+        Log.i("findingNum",""+findingNum);
         Log.i("joinednum",""+joinednum);
         Log.i("pictogram",""+character[0] +" " + character[1] + " " + character[2]);
         Log.i("date",""+date);

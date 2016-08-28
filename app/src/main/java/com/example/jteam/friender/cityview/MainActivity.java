@@ -1,13 +1,15 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.cityview;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.jteam.friender.bulletinview.BulletinActivity;
+import com.example.jteam.friender.database.DB_Login;
+import com.example.jteam.friender.database.DB_Resister;
+import com.example.jteam.friender.myinfo.MyinfoManagement;
+import com.example.jteam.friender.myinfo.MyJoinList;
+import com.example.jteam.friender.myinfo.MyPostList;
+import com.example.jteam.friender.R;
 
 import java.util.ArrayList;
 
@@ -66,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "Selected : " + position, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(),BoardActivity.class);
+                Intent intent = new Intent(getApplicationContext(),BulletinActivity.class);
                 //인텐트에 position정보를 담아 전달
 
                 if(USER_UNIQUE_ID!=0) {
@@ -105,25 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     MOBILE_NUMBER = bundle.getString("MOBILE_NUMBER");
                     loginset = true;
 
-//                    Log.i("F_NAME",""+F_NAME);
-//                    Log.i("L_NAME",""+L_NAME);
-//                    Log.i("EMAIL",""+EMAIL);
-//                    Log.i("BIRTH",""+BIRTH);
-//                    Log.i("MOBILE_NUMBER",""+MOBILE_NUMBER);
-
-                    Log.i("USER_UNIQUE_ID",""+USER_UNIQUE_ID);
-                    Log.i("F_NAME",""+F_NAME);
-                    Log.i("L_NAME",""+L_NAME);
-                    Log.i("EMAIL",""+EMAIL);
-                    Log.i("SEX",""+SEX);
-                    Log.i("BIRTH",""+BIRTH);
-                    Log.i("MOBILE_NUMBER",""+MOBILE_NUMBER);
-                    //loginset = true;
-
-                    //TextView textview = (TextView)findViewById(R.id.inform_id);
-                    //textview.setText("GI");
-                    //textview.append("HELLO");
-                   // textview.setBackgroundColor(Color.BLACK);
                 }
                 break;
         }
@@ -208,7 +199,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
+                Intent intent = new Intent(MainActivity.this,MyJoinList.class);
+                intent.putExtra("USER_UNIQUE_ID",USER_UNIQUE_ID);
+                startActivity(intent);
             }
 
         });
@@ -218,10 +211,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 dialog.dismiss();
-               // setContentView(R.layout.member_information);///////////////////////
-                Intent intent = new Intent(MainActivity.this,Magement.class);
+                Intent intent = new Intent(MainActivity.this,MyinfoManagement.class);
+                intent.putExtra("EMAIL",EMAIL);
+                //intent.putExtra("PW",USER_UNIQUE_ID);
+                intent.putExtra("SEX",SEX);
+                intent.putExtra("FNAME",F_NAME);
+                intent.putExtra("LNAME",L_NAME);
+                intent.putExtra("BIRTH",BIRTH);
+                intent.putExtra("MOBILE",MOBILE_NUMBER);
+
                 startActivity(intent);
-               // setContentView(R.layout.member_information);
             }
 
         });
@@ -232,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 dialog.dismiss();
-                Intent intent = new Intent(MainActivity.this,MyPost.class);
+                Intent intent = new Intent(MainActivity.this,MyPostList.class);
                 intent.putExtra("USER_UNIQUE_ID",USER_UNIQUE_ID);
                 startActivity(intent);
             }
@@ -308,5 +307,29 @@ public class MainActivity extends AppCompatActivity {
             return view;
         }
     }
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        switch (keyCode)
+        {
+            case KeyEvent.KEYCODE_BACK:
+                new AlertDialog.Builder(this)
+                        .setTitle("Exit")
+                        .setMessage("Do yon want to exit?")
+                        .setPositiveButton("yes",new DialogInterface.OnClickListener()
+                        {public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                        }
+                        })
+                        .setNegativeButton("no",null).show();
+                return false;
+
+
+            default:
+                return false;
+
+        }
+    }
+
+
 
 }

@@ -1,14 +1,15 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.database;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.jteam.friender.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,27 +21,23 @@ import java.net.URLEncoder;
 /**
  * Created by flag on 2016-07-27.
  */
-public class Database_Person extends Activity {
+public class DB_Resister extends Activity {
 
     private EditText editTextFirstName;
     private EditText editTextLastName;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private EditText editTextSex;
     private EditText editTextBirth;
     private EditText editTextMobileNumber;
+    Handler mHandler;
+    private String userId;
+    private String userPw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_db_mem_login);
-    }
-
-    public void login(View view){
-
-    }
-
-    public void resMem(View view){
-        setContentView(R.layout.activity_db_mem_res);
+        setContentView(R.layout.activity_db_resister);
     }
 
 
@@ -50,6 +47,7 @@ public class Database_Person extends Activity {
         editTextLastName = (EditText) findViewById(R.id.last_Name);
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
+        editTextSex = (EditText) findViewById(R.id.sex);
         editTextBirth = (EditText) findViewById(R.id.birth);
         editTextMobileNumber =(EditText) findViewById(R.id.mobile_Number);
 
@@ -57,12 +55,13 @@ public class Database_Person extends Activity {
         String l_name = editTextLastName.getText().toString();
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
+        String sex = editTextSex.getText().toString();
         String birth = editTextBirth.getText().toString();
         String mobile_number = editTextMobileNumber.getText().toString();
 
-        insertToDatabase(f_name, l_name, email, password, birth, mobile_number); // Some information of person insert into database
+        insertToDatabase(f_name, l_name, email, password, sex, birth, mobile_number); // Some information of person insert into database
     }
-    private void insertToDatabase(String f_name, String l_name, String email, String password, final String birth, String mobile_number){
+    private void insertToDatabase(String f_name, String l_name, String email, String password, String sex, String birth, String mobile_number){
 
         class InsertData extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
@@ -70,7 +69,7 @@ public class Database_Person extends Activity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Database_Person.this, "Please Wait", null, true, true);
+                loading = ProgressDialog.show(DB_Resister.this, "Please Wait", null, true, true);
             }
 
             @Override
@@ -89,14 +88,16 @@ public class Database_Person extends Activity {
                     String l_name = params[1];
                     String email = params[2];
                     String password = params[3];
-                    String birth = params[4];
-                    String mobile_number = params[5];
+                    String sex = params[4];
+                    String birth = params[5];
+                    String mobile_number = params[6];
 
                     String link = "http://52.68.212.232/insert.php";
                     String data = URLEncoder.encode("f_name", "UTF-8") + "=" + URLEncoder.encode(f_name, "UTF-8");
                     data += "&" + URLEncoder.encode("l_name", "UTF-8") + "=" + URLEncoder.encode(l_name, "UTF-8");
                     data += "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
                     data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
+                    data += "&" + URLEncoder.encode("sex","UTF-8") + "=" + URLEncoder.encode(sex, "UTF-8");
                     data += "&" + URLEncoder.encode("birth", "UTF-8") + "=" + URLEncoder.encode(birth, "UTF-8");
                     data += "&" + URLEncoder.encode("mobile_number", "UTF-8") + "=" + URLEncoder.encode(mobile_number, "UTF-8");
 
@@ -127,6 +128,6 @@ public class Database_Person extends Activity {
         }
 
         InsertData task = new InsertData();
-        task.execute(f_name, l_name, email, password, birth, mobile_number);
+        task.execute(f_name, l_name, email, password, sex, birth, mobile_number);
     }
 }

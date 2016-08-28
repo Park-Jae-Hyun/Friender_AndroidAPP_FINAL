@@ -1,11 +1,13 @@
 //리스트뷰의 각 도시를 보여줄 리니어레이아웃
-package com.example.jteam.friender;
+package com.example.jteam.friender.cityview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.jteam.friender.R;
 
 /**
  * Created by Jeong on 2016-07-27.

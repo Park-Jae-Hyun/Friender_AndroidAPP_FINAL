@@ -39,7 +39,7 @@
                 android:id="@+id/inform_id"
                 android:textSize="18sp"
                 android:layout_weight="80"
-                android:layout_gravity="center"/>
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +61,7 @@
                 android:layout_weight="60"
                 android:textSize="18sp"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:gravity="center"
                 android:id="@+id/inform_password" />
 
             <Button
@@ -72,7 +72,7 @@
                 android:background="@color/white"
                 android:textColor="@color/black"
                 android:id="@+id/button2" />
-            </LinearLayout>
+        </LinearLayout>
 
 
         <LinearLayout
@@ -94,8 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="80"
                 android:textSize="18dp"
-                android:text="New Text"
-                android:id="@+id/textView14" />
+                android:gravity="center"
+                android:id="@+id/inform_gender" />
         </LinearLayout>
 
         <LinearLayout
@@ -119,16 +119,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="40"
                 android:textSize="18sp"
-                android:text="first name"
-                android:id="@+id/textView16" />
+                android:gravity="center"
+                android:id="@+id/inform_first" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="40"
                 android:textSize="18sp"
-                android:text="last name"
-                android:id="@+id/textView17" />
+                android:gravity="center"
+                android:id="@+id/inform_last" />
         </LinearLayout>
 
         <LinearLayout
@@ -152,8 +152,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="80"
                 android:textSize="18sp"
-                android:text="type birth"
-                android:id="@+id/textView19" />
+                android:gravity="center"
+                android:id="@+id/inform_birth" />
         </LinearLayout>
 
         <LinearLayout
@@ -176,50 +176,60 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="80"
-                android:text="000 000 0000"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:id="@+id/textView21" />
+                android:id="@+id/inform_mobile" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="30dp">
+            android:layout_height="80dp"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TRIP CONCEP"/>
 
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/choice1"
-                android:background="@color/white"/>
+                android:background="@color/white"
+                android:layout_marginRight="10dp"/>
 
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/choice2"
-                android:background="@color/white"/>
+                android:background="@color/white"
+                android:layout_marginRight="10dp"/>
 
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/choice3"
-                android:background="@color/white"/>
+                android:background="@color/white"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MODIFY"
+                android:id="@+id/modify"
+                android:background="@color/white"
+                android:onClick="onButtonClick"/>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:orientation="horizontal">
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/horizontalScrollView2">
+                android:id="@+id/horizontalScrollView2"
+                android:layout_gravity="center">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -235,56 +245,55 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib1"
-                            android:background="@mipmap/p01people"/>
+                            android:background="@mipmap/p01people"
+                            android:onClick="onButtonClick"/>
 
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib2"
-                            android:background="@mipmap/p02food"/>
+                            android:background="@mipmap/p02food"
+                            android:onClick="onButtonClick"/>
 
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib3"
-                            android:background="@mipmap/p03beer"/>
+                            android:background="@mipmap/p03beer"
+                            android:onClick="onButtonClick"/>
 
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib4"
-                            android:background="@mipmap/p04coffee"/>
+                            android:background="@mipmap/p04coffee"
+                            android:onClick="onButtonClick"/>
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib5"
-                            android:background="@mipmap/p05sports"/>
+                            android:background="@mipmap/p05sports"
+                            android:onClick="onButtonClick"/>
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib6"
-                            android:background="@mipmap/p06music"/>
+                            android:background="@mipmap/p06music"
+                            android:onClick="onButtonClick"/>
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib7"
-                            android:background="@mipmap/p07movie"/>
+                            android:background="@mipmap/p07movie"
+                            android:onClick="onButtonClick"/>
 
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib8"
-                            android:background="@mipmap/p08photo"/>
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:id="@+id/ib9"
-                            android:background="@mipmap/p09reading"/>
-                        <ImageButton
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:id="@+id/ib10"
-                            android:background="@mipmap/p10concert"/>
+                            android:background="@mipmap/p08photo"
+                            android:onClick="onButtonClick"/>
+
 
 
                     </LinearLayout>
@@ -293,13 +302,58 @@
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib9"
+                            android:background="@mipmap/p09reading"
+                            android:onClick="onButtonClick"/>
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib10"
+                            android:background="@mipmap/p10concert"
+                            android:onClick="onButtonClick"/>
 
                         <ImageButton
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:id="@+id/ib11"
-                            android:background="@mipmap/p11festival"/>
+                            android:background="@mipmap/p11festival"
+                            android:onClick="onButtonClick"/>
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib12"
+                            android:background="@mipmap/p12travel"
+                            android:onClick="onButtonClick"/>
+
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib13"
+                            android:background="@mipmap/p13rest"
+                            android:onClick="onButtonClick"/>
+
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib14"
+                            android:background="@mipmap/p14tour"
+                            android:onClick="onButtonClick"/>
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib15"
+                            android:background="@mipmap/p15beach"
+                            android:onClick="onButtonClick"/>
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/ib16"
+                            android:background="@mipmap/p16mountain"
+                            android:onClick="onButtonClick"/>
+
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -310,22 +364,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:layout_gravity="bottom">
+            android:layout_weight="1">
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:text="MODIFY"
-                android:id="@+id/button3" />
+                android:text="CANCEL"
+                android:id="@+id/cancel"
+                android:background="@color/white"/>
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:text="OKAY"
-                android:id="@+id/button4" />
+                android:text="OK"
+                android:id="@+id/ok"
+                android:background="@color/white"/>
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

@@ -1,11 +1,10 @@
-package com.example.jteam.friender;
+package com.example.jteam.friender.bulletinview;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.jteam.friender.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,7 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 
-public class BoardPost extends Activity {
+public class BulletinPost extends Activity {
     private Button datebutton;
     private Spinner numofmembers;
     private Spinner myfriend;
@@ -38,17 +39,8 @@ public class BoardPost extends Activity {
     private Button buttonWrite;
     private Button buttonCancel;
     private String writer = null;
-/*
-    private String destination = null;
-    private String route1 = null;
-    private String route2 = null;
-    private String letter = null;
-    private int totalnum = 0;/////////////
-    private int joinednum = 0;//////////////
-    private boolean[] checkbox = new boolean[20];
-    private int[] character = new int[3];/////////////
-    private String p_date = null;
-    private String city = null;*/
+    private String mobile_number = null;
+    private String city = null;
     Bulletin bulletin = new Bulletin();
 
 
@@ -72,13 +64,9 @@ public class BoardPost extends Activity {
             USER_UNIQUE_ID = intent.getIntExtra("USER_UNIQUE_ID",0);
             bulletin.setCity(intent.getStringExtra("city"));
             writer = intent.getStringExtra("writer");
-            Log.i("USER_UNIQUE_ID",""+USER_UNIQUE_ID);
+            mobile_number = intent.getStringExtra("mobile_number");
         }
-        Log.i("USER_UNIQUE_IDherere",""+USER_UNIQUE_ID);
 
-//        for(int i = 0; i < 20; i++) {
-//         //   checkBox[i] = (CheckBox)findViewById(checkres[i]);
-//        }
         buttonWrite = (Button) findViewById(R.id.posting_write);
         buttonCancel = (Button) findViewById(R.id.posting_cancel);
 
@@ -143,7 +131,7 @@ public class BoardPost extends Activity {
         datebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog
-                        (BoardPost.this, listener, year, month, day);
+                        (BulletinPost.this, listener, year, month, day);
                 dialog.show();
             }
         });
@@ -186,7 +174,7 @@ public class BoardPost extends Activity {
         int j = 0;
         for(int i = 0; i < 20 && j<3 ; i++) {
             if(checkBox[i].isChecked())
-                bulletin.setCharacter(j++,i);
+                bulletin.setCharacter(j++,i+1);
         }
 
         PostOnBoard post_on_board = new PostOnBoard();
@@ -221,30 +209,12 @@ public class BoardPost extends Activity {
             String user_character3 = params[11];
             String user_text = params[12];
 
-
-            Log.i("user_u_id",""+user_u_id);
-            Log.i("user_city",""+user_city);
-            Log.i("user_destination",""+user_destination);
-            Log.i("user_writer",""+user_writer);
-            Log.i("user_route1",""+user_route1);
-            Log.i("user_route2",""+user_route2);
-            Log.i("user_date",""+user_date);
-            Log.i("user_total_traveler",""+user_total_traveler);
-            Log.i("user_joined_traveler",""+user_joined_traveler);
-            Log.i("user_character1",""+user_character1);
-            Log.i("user_character2",""+user_character2);
-            Log.i("user_character3",""+user_character3);
-            Log.i("user_text",""+user_text);
-
-
-
-
             String data = "";
             int tmp;
 
             try {
                 URL url = new URL("http://52.68.212.232/db_travel_post.php");
-//
+
                 String urlParams =  "id="+user_u_id+
                                     "&city="+user_city+
                                     "&destination="+user_destination+
@@ -252,7 +222,7 @@ public class BoardPost extends Activity {
                                     "&route1="+user_route1+
                                     "&route2="+user_route2+
                                     "&date="+user_date+
-                                    "&total_friends="+user_total_traveler+
+                                    "&finding_friends="+user_total_traveler+
                                     "&joined_friends="+user_joined_traveler+
                                     "&character1="+user_character1+
                                     "&character2="+user_character2+
@@ -274,6 +244,8 @@ public class BoardPost extends Activity {
                 is.close();
                 httpURLConnection.disconnect();
 
+                city = user_city;
+
                 return data;
 
             } catch (MalformedURLException e) {
@@ -286,9 +258,13 @@ public class BoardPost extends Activity {
         }
         @Override
         protected void onPostExecute(String s) {
-
-            Intent intent = getIntent();
-            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(BulletinPost.this, BulletinActivity.class);
+            //intent = getIntent();
+            intent.putExtra("USER_UNIQUE_ID",USER_UNIQUE_ID);
+            intent.putExtra("NAME",writer);
+            intent.putExtra("mobile_number",mobile_number);
+            intent.putExtra("city", city);
+            startActivity(intent);
             finish();
         }
     }

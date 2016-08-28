@@ -66,6 +66,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="70"
         android:id="@+id/main_password"
+        android:password="true"
         android:background="@color/white"
         />
 </LinearLayout>

@@ -1,5 +1,5 @@
 //리스트뷰의 각 도시를 보여줄 리니어레이아웃
-package com.example.jteam.friender;
+package com.example.jteam.friender.bulletinview;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.jteam.friender.R;
+
 /**
  * Created by Jeong on 2016-07-27.
  */
-public class BoardItemView extends LinearLayout{
+public class BulletinItemView extends LinearLayout{
     TextView DestinationView;
     TextView RouteView1;
     TextView RouteView2;
@@ -21,19 +23,19 @@ public class BoardItemView extends LinearLayout{
     ImageView[] PictogramView = new ImageView[3];
 
     //pictogram resource 배열
-    int pictogramres[] = {R.mipmap.p01people,R.mipmap.p02food,R.mipmap.p03beer,R.mipmap.p04coffee,
+    int pictogramres[] = {R.color.white,R.mipmap.p01people,R.mipmap.p02food,R.mipmap.p03beer,R.mipmap.p04coffee,
     R.mipmap.p05sports,R.mipmap.p06music,R.mipmap.p07movie,R.mipmap.p08photo,R.mipmap.p09reading,
     R.mipmap.p10concert,R.mipmap.p11festival,R.mipmap.p12travel,R.mipmap.p13rest,R.mipmap.p14tour,
     R.mipmap.p15beach,R.mipmap.p16mountain,R.mipmap.p17owncar,R.mipmap.p18bycicle,
     R.mipmap.p19publictransit,R.mipmap.p20cruise};
 
-    public BoardItemView(Context context) {
+    public BulletinItemView(Context context) {
         super(context);
 
         init(context);
     }
 
-    public BoardItemView(Context context, AttributeSet attrs) {
+    public BulletinItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context);
@@ -89,7 +91,7 @@ public class BoardItemView extends LinearLayout{
     {
         DateView.setText(bulletin.getDate());
         DestinationView.setText(bulletin.getDestination());
-        if(bulletin.getTotalnum() == 1)
+        if(bulletin.getTotalnum() == 10)
             FindingView.setText("Finding:Any");
         else
             FindingView.setText("Finding : "+bulletin.getTotalnum());

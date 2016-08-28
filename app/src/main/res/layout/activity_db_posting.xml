@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BoardPost">
+    tools:context=".bulletinview.BulletinPost">
 
     <LinearLayout
         android:orientation="vertical"
@@ -51,7 +51,7 @@
                     android:id="@+id/posting_route1"
                     android:layout_column="0"
                     android:layout_width="109dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="35dp" />
 
                 <TextView
                     android:text="Sub Route2"
@@ -66,7 +66,7 @@
                     android:id="@+id/posting_route2"
                     android:layout_column="0"
                     android:layout_width="109dp"
-                    android:layout_height="30dp" />
+                    android:layout_height="35dp" />
 
             </LinearLayout>
 

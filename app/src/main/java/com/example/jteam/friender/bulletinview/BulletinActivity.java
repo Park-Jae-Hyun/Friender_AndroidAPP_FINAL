@@ -1,5 +1,5 @@
 //게시판 액티비티
-package com.example.jteam.friender;
+package com.example.jteam.friender.bulletinview;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +23,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.jteam.friender.R;
+import com.example.jteam.friender.cityview.CityList;
+import com.example.jteam.friender.database.DB_Bulletin;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 
-public class BoardActivity extends AppCompatActivity {
+public class BulletinActivity extends AppCompatActivity {
     CityList CList = new CityList();
     TextView textview;
     BoardAdapter Adapter;
@@ -53,7 +56,7 @@ public class BoardActivity extends AppCompatActivity {
     private String name = null;
     private String writer = null;
     private String destination = null, sub_route1 = null, sub_route2 = null, text = null, mobile_number = null;
-    private int num_bulletin =0, date = 0, total_friends = 0, joined_friends = 0, character1, character2, character3;
+    private int num_bulletin =0, date = 0, finding_friends = 0, joined_friends = 0, character1, character2, character3;
     // 필터시 사용할 날짜
     private int startdate =0, lastdate= 99999999;
     /**
@@ -72,12 +75,14 @@ public class BoardActivity extends AppCompatActivity {
             USER_UNIQUE_ID = intent.getIntExtra("USER_UNIQUE_ID",0);
             name = intent.getStringExtra("NAME");
             mobile_number = intent.getStringExtra("mobile_number");
+            city = intent.getStringExtra("city");
         }
 
 
         //액션바 타이틀 변경
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle((String)CList.getCity_list().get(intent.getFlags()));
+        actionbar.setTitle(city);
+        //actionbar.setTitle((String)CList.getCity_list().get(intent.getFlags()));
 
        // View itemview = getLayoutInflater().inflate(R.layout.city_item,null);
         //actionbar.setCustomView(itemview);
@@ -85,8 +90,9 @@ public class BoardActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         //Get travel_info from database
-        city = (String)CList.getCity_list().get(intent.getFlags());
-        Log.i("city1",""+city);
+        if(city == null)
+            city = (String)CList.getCity_list().get(intent.getFlags());
+
         BulletinShow B_Show = new BulletinShow();
         B_Show.execute(city);
 
@@ -108,9 +114,11 @@ public class BoardActivity extends AppCompatActivity {
 
                 //인텐트에 bulletin정보를 담아 전달
                 intent.putExtra("bulletin",bulletin.get(position));
+                intent.putExtra("USER_UNIQUE_ID",USER_UNIQUE_ID);/////////////////////////////////////////////////
                 intent.putExtra("user_name",name);
                 intent.putExtra("mobile_number",mobile_number);
                 startActivity(intent);
+                finish();
             }
 
         });
@@ -134,13 +142,12 @@ public class BoardActivity extends AppCompatActivity {
         }
         if(id == R.id.Write)
         {
-            Intent intent2 = new Intent(BoardActivity.this,BoardPost.class);
+            Intent intent2 = new Intent(BulletinActivity.this,BulletinPost.class);
             if(USER_UNIQUE_ID!=0) {
                 intent2.putExtra("USER_UNIQUE_ID",USER_UNIQUE_ID);
                 intent2.putExtra("city",city);
                 intent2.putExtra("writer",name);
-                Log.i("rightUSER_UNIQUE_ID",""+USER_UNIQUE_ID);
-                Log.i("city3",""+city);
+                intent2.putExtra("mobile_number",mobile_number);
             }
 
             startActivity(intent2);
@@ -173,7 +180,7 @@ public class BoardActivity extends AppCompatActivity {
         startdateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog
-                        (BoardActivity.this, startdatelistener, year, month, day);
+                        (BulletinActivity.this, startdatelistener, year, month, day);
                 dialog.show();
             }
         });
@@ -181,7 +188,7 @@ public class BoardActivity extends AppCompatActivity {
         lastdateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog
-                        (BoardActivity.this, lastdatelistener, year, month, day);
+                        (BulletinActivity.this, lastdatelistener, year, month, day);
                 dialog.show();
             }
         });
@@ -293,10 +300,9 @@ public class BoardActivity extends AppCompatActivity {
         //각 게시판리스트에 보여질 뷰 세팅
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            BoardItemView view = new BoardItemView(getApplicationContext());
+            BulletinItemView view = new BulletinItemView(getApplicationContext());
 
             view.setBulletin(bulletin.get(position));
-            Log.i("bulletin.get(position)",""+bulletin.get(position));
 
             return view;
         }
@@ -315,7 +321,6 @@ public class BoardActivity extends AppCompatActivity {
                 URL url = new URL("http://52.68.212.232/db_travel_bulletin.php");
                 String urlParams = "city=" + city;
 
-                Log.i("city2",""+city);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 OutputStream os = httpURLConnection.getOutputStream();
@@ -365,7 +370,7 @@ public class BoardActivity extends AppCompatActivity {
                     sub_route1 = dataJObject.getString("sub_route1");
                     sub_route2 = dataJObject.getString("sub_route2");
                     date = dataJObject.getInt("date");
-                    total_friends = dataJObject.getInt("total_friends");
+                    finding_friends = dataJObject.getInt("finding_friends");
                     joined_friends = dataJObject.getInt("joined_friends");
                     character1 = dataJObject.getInt("character1");
                     character2 = dataJObject.getInt("character2");
@@ -373,7 +378,7 @@ public class BoardActivity extends AppCompatActivity {
                     text = dataJObject.getString("text");
 
                     temp.setAllcomponents(num_bulletin, destination, writer, sub_route1, sub_route2, date,
-                            total_friends, joined_friends, character1, character2, character3,text);
+                            finding_friends, joined_friends, character1, character2, character3,text);
 
                     //지금보다 이전날짜글은 안띄움
                     if(date>=year*10000+(month+1)*100+day)
